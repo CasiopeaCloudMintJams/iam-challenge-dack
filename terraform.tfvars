@@ -1,9 +1,6 @@
 # iam-users
 aws_iam_users = ["Clavelle", "Howard-Thibbs-III","Theodore-Pendergrass","Grandmaster-Caz","Charlie-Brown","Busta-Rhymes"]
 
-# public-subnets
-public-subnets = ["10.34.11.0/24", "10.34.12.0/24", "10.34.13.0/24"]
-
 # iam-groups
 aws_iam_group_members = {
     "Funky-Finger-Productions" = ["Clavelle", "Howard-Thibbs-III"]
@@ -18,12 +15,12 @@ json_policices = {
 # iam group 1 permissions
 # has admin privileges
     "Funky-Finger-Productions" = {
-    "Version" = "2012-10-17",
-    "Statement" = [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Action"   = "*"
-        "Effect"   = "Allow"
-        "Resource" = "*"
+        "Action"   : "*"
+        "Effect"   : "Allow"
+        "Resource" ; "*"
       },
     ]
   },
