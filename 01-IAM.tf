@@ -1,16 +1,13 @@
 # Create the iam group  membership resource
 
-# iam group membership example
-#   from terraform registry: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_membership
-
-# enrolling users into the iam group as members of the team
+# Enroll users into the iam group
+# As members of the team
 resource "aws_iam_group_membership" "aws_iam_group_memberships"{
   for_each = var.aws_iam_group_members
   group = aws_iam_group.aws_iam_groups[each.key].name
   users = each.value
   name = "${each.key}-team"
 }
-
 
 # Create the names of the iam groups
 resource "aws_iam_group" "aws_iam_groups"{
@@ -24,13 +21,9 @@ resource "aws_iam_user" "users"{
   name = each.value
 }
 
-# iam group policy example
-#   from terraform registry: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy
-
-# json example policy
-#   from aws: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ExamplePolicies_EC2.html#iam-example-region
-
+# IAM group policy
 # Creating the iam group policy permissions
+# Attach json documents to policies
 resource "aws_iam_group_policy" "group_permissions"{
   for_each = var.json_policices
   name = "${each.key}-permissions"
@@ -46,12 +39,7 @@ resource "aws_iam_access_key" "aws_iam_access_keys"{
 }
 
 # Creating csv files to store access and secret credentials
-# from the terrafrom state file
-
-# Source: https://achinthabandaranaike.medium.com/how-to-deploy-aws-iam-users-user-groups-policies-and-roles-using-terraform-7dd853404dc0
-
-# For each iam user, pulled from access key id and secret
-# files to be exported to AWS IAM
+# Grabbed from the state file
 locals {
     user_keys_csv = {
         for key, value in aws_iam_access_key.aws_iam_access_keys: key => "${value.user} Keys\naccess_key,secret_key\n${value.id},${value.secret}"
